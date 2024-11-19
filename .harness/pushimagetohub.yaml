@@ -1,0 +1,38 @@
+pipeline:
+  name: push-image-tohub
+  identifier: pushimagetohub
+  projectIdentifier: firstproject
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: githubconnect
+        repoName: getting-started-docker
+        build: <+input>
+  stages:
+    - stage:
+        name: push-image-tohub
+        identifier: pushimagetohub
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: docker_connect
+                    repo: sangameshhub/push-from-harness
+                    tags:
+                      - harness-img
+                    caching: true
